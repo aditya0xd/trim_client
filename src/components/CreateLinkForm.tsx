@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link2, Sparkles, Calendar, ArrowRight, Info } from "lucide-react";
+import { isValidUrl } from "../lib/utils";
 
 interface CreateLinkFormProps {
   creating: boolean;
@@ -21,8 +22,8 @@ export default function CreateLinkForm({ creating, createError, onSubmit }: Crea
       setValidationError("Please enter a URL to shorten");
       return;
     }
-    if (!originalUrl.startsWith("http://") && !originalUrl.startsWith("https://")) {
-      setValidationError("URL must start with http:// or https://");
+    if (!isValidUrl(originalUrl)) {
+      setValidationError("Please enter a valid URL (must start with http:// or https://)");
       return;
     }
 

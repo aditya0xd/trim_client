@@ -5,26 +5,22 @@ import { Plus, Search, Link2, MousePointerClick, TrendingUp } from "lucide-react
 import MetricCard from "../components/MetricCard";
 import LinksTable from "../components/LinksTable";
 
+import { 
+  calculateTotalLinks, 
+  calculateTotalClicks, 
+  getMostActiveLink, 
+  filterLinks 
+} from "../lib/links";
+
 export default function DashboardPage() {
   const navigate = useNavigate();
   const { links, loading, error, refresh } = useLinks();
   const [searchQuery, setSearchQuery] = useState("");
 
-  // Metrics
-  const totalLinks = links.length;
-  const totalClicks = links.reduce((sum, link) => sum + link.clickCount, 0);
-  const mostActiveLink = links.length > 0
-    ? [...links].sort((a, b) => b.clickCount - a.clickCount)[0]
-    : null;
-
-  // Filter
-  const filteredLinks = links.filter((link) => {
-    const query = searchQuery.toLowerCase();
-    return (
-      link.originalUrl.toLowerCase().includes(query) ||
-      link.shortCode.toLowerCase().includes(query)
-    );
-  });
+  const totalLinks = calculateTotalLinks(links);
+  const totalClicks = calculateTotalClicks(links);
+  const mostActiveLink = getMostActiveLink(links);
+  const filteredLinks = filterLinks(links, searchQuery);
 
   return (
     <div className="space-y-8">

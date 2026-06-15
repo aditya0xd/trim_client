@@ -8,6 +8,7 @@ import {
   ChevronRight
 } from "lucide-react";
 import type { Link } from "../feature/links/types/link.types";
+import { formatDate, copyToClipboard } from "../lib/utils";
 
 interface LinksTableProps {
   links: Link[];
@@ -24,7 +25,7 @@ export default function LinksTable({ links, loading, error, searchQuery, onRetry
   const handleCopy = async (e: React.MouseEvent, shortUrl: string, code: string) => {
     e.stopPropagation();
     try {
-      await navigator.clipboard.writeText(shortUrl);
+      await copyToClipboard(shortUrl);
       setCopyStates((prev) => ({ ...prev, [code]: true }));
       setTimeout(() => {
         setCopyStates((prev) => ({ ...prev, [code]: false }));
@@ -151,11 +152,7 @@ export default function LinksTable({ links, loading, error, searchQuery, onRetry
 
                 {/* Date */}
                 <td className="px-6 py-4 text-muted-foreground whitespace-nowrap">
-                  {new Date(link.createdAt).toLocaleDateString(undefined, {
-                    month: "short",
-                    day: "numeric",
-                    year: "numeric",
-                  })}
+                  {formatDate(link.createdAt)}
                 </td>
 
                 {/* Actions */}

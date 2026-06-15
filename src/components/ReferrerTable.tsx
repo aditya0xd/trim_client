@@ -1,4 +1,5 @@
 
+import { calculatePercentage, sortReferrersByCount } from "../lib/metrics";
 
 interface ReferrerItem {
   referrer: string;
@@ -32,10 +33,9 @@ export default function ReferrerTable({ referrers, totalClicks }: ReferrerTableP
               </tr>
             </thead>
             <tbody className="divide-y divide-border text-xs">
-              {[...referrers]
-                .sort((a, b) => b.count - a.count)
+              {sortReferrersByCount(referrers)
                 .map((ref, idx) => {
-                  const pct = Math.round((ref.count / (totalClicks || 1)) * 100);
+                  const pct = calculatePercentage(ref.count, totalClicks);
                   return (
                     <tr key={idx} className="hover:bg-muted/30 transition-colors">
                       <td className="px-6 py-3.5 font-medium text-foreground">

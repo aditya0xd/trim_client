@@ -61,9 +61,6 @@ export default function CreateLinkPage() {
           <CreateLinkForm
             creating={creating}
             createError={createError}
-            onSuccess={(shortUrl, shortCode) =>
-              setSuccessData({ shortUrl, shortCode, originalUrl: "" })
-            }
             onSubmit={handleSubmit}
           />
         )}

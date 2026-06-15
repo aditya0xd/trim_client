@@ -6,6 +6,7 @@ import {
   ExternalLink,
   ArrowRight
 } from "lucide-react";
+import { copyToClipboard } from "../lib/utils";
 
 interface SuccessCardProps {
   shortUrl: string;
@@ -20,7 +21,7 @@ export default function SuccessCard({ shortUrl, shortCode, originalUrl, onReset 
 
   const handleCopy = async () => {
     try {
-      await navigator.clipboard.writeText(shortUrl);
+      await copyToClipboard(shortUrl);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
