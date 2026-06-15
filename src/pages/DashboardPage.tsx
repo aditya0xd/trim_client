@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useLinks } from "../feature/links/hooks/uselinks";
+import { useLinks } from "../hooks/useLinks";
 import { Plus, Search, Link2, MousePointerClick, TrendingUp } from "lucide-react";
 import MetricCard from "../components/MetricCard";
 import LinksTable from "../components/LinksTable";

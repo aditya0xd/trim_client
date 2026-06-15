@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
-import { getLinkAnalytics } from "../services/analytics.api";
-import type { Analytics } from "../types/analytics.types";
+import { getLinkAnalytics } from "../feature/analytics/services/analytics.api";
+import type { Analytics } from "../feature/analytics/types/analytics.types";
 
 interface UseAnalyticsReturn {
   analytics: Analytics | null;

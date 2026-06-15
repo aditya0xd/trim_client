@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useLinks } from "../feature/links/hooks/uselinks";
+import { useLinks } from "../hooks/useLinks";
 import { ChevronLeft } from "lucide-react";
 import CreateLinkForm from "../components/CreateLinkForm";
 import SuccessCard from "../components/SuccessCard";

@@ -1,6 +1,6 @@
 
 import { useParams, useNavigate } from "react-router-dom";
-import { useAnalytics } from "../feature/analytics/hooks/useAnalytics";
+import { useAnalytics } from "../hooks/useAnalytics";
 import { 
   ArrowLeft, 
   MousePointerClick, 
