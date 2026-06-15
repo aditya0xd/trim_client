@@ -3,12 +3,14 @@ import MainLayout from "../layouts/MainLayout";
 import DashboardPage from "../pages/DashboardPage";
 import CreateLinkPage from "../pages/CreateLinkPage";
 import AnalyticsPage from "../pages/AnalyticsPage";
-import { API_BASE_URL } from "../lib/constants";
+import { SHORT_BASE_URL } from "../lib/constants";
+
+const shortBaseUrl = SHORT_BASE_URL.replace(/\/+$/, "");
 
 function RedirectHandler() {
   const { code } = useParams<{ code: string }>();
   if (code) {
-    window.location.replace(`${API_BASE_URL}/${code}`);
+    window.location.replace(`${shortBaseUrl}/${encodeURIComponent(code)}`);
   }
   return (
     <div className="flex items-center justify-center min-h-[50vh]">
@@ -27,8 +29,8 @@ export default function AppRoutes() {
         <Route path="/" element={<DashboardPage />} />
         <Route path="/create" element={<CreateLinkPage />} />
         <Route path="/analytics/:shortCode" element={<AnalyticsPage />} />
-        <Route path="/:code" element={<RedirectHandler />} />
       </Route>
+      <Route path="/:code" element={<RedirectHandler />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );

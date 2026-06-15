@@ -21,9 +21,9 @@ export function truncateUrl(url: string, maxLength = 52): string {
   try {
     const { hostname, pathname } = new URL(url);
     const full = hostname + pathname;
-    return full.length > maxLength ? full.slice(0, maxLength) + "…" : full;
+    return full.length > maxLength ? full.slice(0, maxLength) + "..." : full;
   } catch {
-    return url.length > maxLength ? url.slice(0, maxLength) + "…" : url;
+    return url.length > maxLength ? url.slice(0, maxLength) + "..." : url;
   }
 }
 

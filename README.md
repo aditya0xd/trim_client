@@ -1,73 +1,97 @@
-# React + TypeScript + Vite
+# Trim - URL Shortener with Analytics
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Trim is a modern, high-performance URL shortener built with a sleek, dark SaaS aesthetic inspired by Linear and Vercel. It allows users to quickly shorten long URLs, assign custom aliases, and track detailed click analytics.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Link Shortening**: Convert long URLs into easily shareable short links.
+- **Custom Aliases**: Personalize your short links (e.g., `trim.so/my-campaign`).
+- **Comprehensive Analytics**:
+  - Track total link clicks.
+  - View time-series data of clicks over time.
+  - Analyze referrer sources (e.g., direct, social media).
+- **Modern SaaS UI**: Dark-mode first design using Tailwind CSS, featuring subtle borders, vibrant accents, and smooth hover interactions.
+- **Dockerized Backend**: Ready for production deployment using Docker Compose.
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+**Frontend**:
+- React 18
+- TypeScript
+- Vite
+- Tailwind CSS v4
+- Lucide React (Icons)
+- Recharts (Data Visualization)
+- React Router DOM
 
-## Expanding the ESLint configuration
+**Backend**:
+- Node.js & Express
+- TypeScript
+- MongoDB (Mongoose)
+- Docker & Docker Compose
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Getting Started (Local Development)
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Prerequisites
+- Node.js (v18+)
+- MongoDB running locally or a MongoDB Atlas URI.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### 1. Backend Setup
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+1. Navigate to the server directory:
+   ```bash
+   cd server
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Create a `.env` file in the `server` directory:
+   ```env
+   PORT=5000
+   MONGO_URI=mongodb://localhost:27017/trim
+   FRONTEND_URL=http://localhost:5173
+   ```
+4. Start the development server:
+   ```bash
+   npm run dev
+   ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. Frontend Setup
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+1. Navigate to the client directory:
+   ```bash
+   cd client
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Create a `.env` file in the `client` directory:
+   ```env
+   VITE_API_URL=http://localhost:5000/api
+   ```
+4. Start the Vite development server:
+   ```bash
+   npm run dev
+   ```
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Running via Docker
+
+You can easily spin up the backend and database using Docker.
+
+1. Navigate to the `server` directory:
+   ```bash
+   cd server
+   ```
+2. Build and start the containers in detached mode:
+   ```bash
+   docker compose up -d --build
+   ```
+This will start both the Express API and a MongoDB instance automatically. The API will be available at `http://localhost:5000`.
+
+## Architecture Overview
+
+- **Modular Hooks**: The frontend logic is decoupled from the UI using custom hooks (`useLinks`, `useAnalytics`) located in `src/hooks/`.
+- **Stateless Components**: The UI leverages reusable components (`MetricCard`, `LinksTable`, `ClicksChart`) found in `src/components/`.
+- **RESTful API**: The backend exposes standard REST endpoints for link creation, redirection, and fetching aggregated analytics data.
